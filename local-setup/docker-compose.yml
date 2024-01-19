@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: "document-localstack"
+    environment:
+      - LOCALSTACK_HOSTNAME=localhost
+      - TEST_AWS_ACCOUNT_ID=000000000000
+      - AWS_DEFAULT_REGION=eu-west-1
+      - DATA_DIR=/tmp/localstack/data
+    ports:
+      - "4566:4566"
+    volumes:
+      - ./localstack-init-scripts:/docker-entrypoint-initaws.d/
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  database:
+    image: mysql:8.0
+    container_name: "document-db"
+    environment:
+      MYSQL_DATABASE: document
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3307:3306"
