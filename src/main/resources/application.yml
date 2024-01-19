@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: document
+  config:
+    import: optional:file:/opt/config/application.yaml
+  flyway:
+    locations:
+      - classpath:db/migration
+      - classpath:db/callback
+  datasource:
+    url: jdbc:mysql://localhost/banking
+    username: john
+    password: password123
+  cloud:
+    stream:
+      function:
+        definition: transferCommandProcessor
+      bindings:
+        some-queuein-in-0:
+          destination: some-queue-in
+        some-queueout-out-0:
+          destination: some-queue-out
+      default-binder: sqs
+
+logging:
+  level:
+    "org.springframework": INFO
+    "org.springframework.integration.aws.support": ERROR

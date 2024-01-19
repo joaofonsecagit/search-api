@@ -2,7 +2,8 @@
 
 echo "##### Creating SQS queues #####"
 
-awslocal sqs create-queue --queue-name some-queue-name
+awslocal sqs create-queue --queue-name some-queuein
+awslocal sqs create-queue --queue-name some-queueout
 
 echo "##### Listing SQS queues #####"
 
