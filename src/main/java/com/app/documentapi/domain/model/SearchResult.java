@@ -5,9 +5,8 @@ import lombok.Builder;
 import java.util.UUID;
 
 @Builder
-public record Document(
-    UUID id,
-    String name,
-    String content
+public record SearchResult(
+    UUID documentId,
+    double rankScore
 ) {
 }

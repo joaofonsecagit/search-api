@@ -2,12 +2,12 @@ package com.app.documentapi.domain.model;
 
 import lombok.Builder;
 
+import java.util.Map;
 import java.util.UUID;
 
 @Builder
-public record Document(
+public record IndexedDocument(
     UUID id,
-    String name,
-    String content
+    Map<String, Integer> wordFrequency
 ) {
 }
