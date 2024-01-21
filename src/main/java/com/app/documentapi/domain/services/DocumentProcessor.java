@@ -10,9 +10,18 @@ import org.springframework.stereotype.Service;
 public class DocumentProcessor {
 
   public String process(String documentContent) {
-    // Implement the document processing logic
-    // Tokenize, clean, and normalize the content and return the processed text
-    return null;
-  }
-}
+    // Normalize the content (e.g., to lowercase)
+    String normalizedContent = normalizeContent(documentContent);
 
+    // Additional processing can be added here (e.g., stopwords removal, stemming)
+
+    return normalizedContent;
+  }
+
+  private String normalizeContent(String content) {
+    // Example: Convert to lowercase and remove non-alphanumeric characters
+    return content.toLowerCase().replaceAll("[^a-z0-9\\s]", "");
+  }
+
+  // Placeholder for additional processing methods
+}

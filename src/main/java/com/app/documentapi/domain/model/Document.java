@@ -1,8 +1,7 @@
 package com.app.documentapi.domain.model;
 
-import lombok.Builder;
-
 import java.util.UUID;
+import lombok.Builder;
 
 @Builder
 public record Document(
