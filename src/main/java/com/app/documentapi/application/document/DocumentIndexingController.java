@@ -15,7 +15,6 @@ public class DocumentIndexingController {
 
   @PostMapping
   public IndexDto indexDocuments(@RequestBody IndexDto indexDto) {
-    documentIndexingService.indexDocumentsFromDirectory(indexDto.directoryPath());
-    return indexDto;
+    return documentIndexingService.indexDocumentsFromDirectory(indexDto.directoryPath());
   }
 }
