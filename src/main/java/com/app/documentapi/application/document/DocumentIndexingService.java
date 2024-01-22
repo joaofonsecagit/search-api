@@ -2,10 +2,7 @@ package com.app.documentapi.application.document;
 
 import com.app.documentapi.domain.DocumentRepository;
 import com.app.documentapi.domain.FileSystemReader;
-import com.app.documentapi.domain.model.Document;
-import com.app.documentapi.domain.model.IndexedDocument;
 import com.app.documentapi.domain.services.DocumentIndexer;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,15 +17,15 @@ public class DocumentIndexingService {
   private final DocumentRepository documentRepository;
 
   public void indexDocumentsFromDirectory(String directoryPath) {
-    // Read documents from the directory
-    log.info("READING");
-    List<Document> documents = fileSystemReader.readDocumentsFromDirectory(directoryPath);
-    log.info("READ: {}", documents);
+    log.info("Reading documents from the directory");
+    var documents = fileSystemReader.readDocumentsFromDirectory(directoryPath);
 
-    // Index each document and store it in the repository
-    for (Document document : documents) {
-      IndexedDocument indexedDocument = documentIndexer.index(document);
+    documents.forEach(document -> {
+      log.debug("Indexing and storing document: {}", document.name());
+      var indexedDocument = documentIndexer.index(document);
       documentRepository.add(indexedDocument);
-    }
+    });
+
+    log.debug("Successfully stored indexes for {} documents", documents.size());
   }
 }

@@ -1,11 +1,13 @@
 package com.app.documentapi.domain.model;
 
-import java.util.UUID;
 import lombok.Builder;
+
+import java.util.UUID;
 
 @Builder
 public record SearchResult(
-    UUID documentId,
+    UUID fileId,
+    String fileName,
     double rankScore
 ) {
 }
