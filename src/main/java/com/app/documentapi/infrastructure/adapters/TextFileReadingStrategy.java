@@ -1,13 +1,12 @@
 package com.app.documentapi.infrastructure.adapters;
 
-import com.app.documentapi.domain.file.FileReadingStrategy;
-import com.app.documentapi.domain.model.Document;
-
-import java.io.IOException;
-import java.nio.file.Path;
-
 import static java.nio.file.Files.readString;
 import static java.util.UUID.randomUUID;
+
+import com.app.documentapi.domain.file.FileReadingStrategy;
+import com.app.documentapi.domain.model.Document;
+import java.io.IOException;
+import java.nio.file.Path;
 
 public class TextFileReadingStrategy implements FileReadingStrategy {
 

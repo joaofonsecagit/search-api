@@ -1,10 +1,12 @@
 package com.app.documentapi.domain.services;
 
+import static java.util.Comparator.comparingDouble;
+import static java.util.stream.Collectors.toList;
+
 import com.app.documentapi.domain.model.IndexedDocument;
 import com.app.documentapi.domain.model.SearchResult;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,36 +16,29 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DocumentSearcher {
 
+  private final RankingService rankingService;
+
   public List<SearchResult> search(String query, List<IndexedDocument> indexedDocuments) {
-    // Tokenize the query
-    String[] queryWords = query.toLowerCase().split("\\W+");
+    log.info("Searching query '{}' in {} indexed documents", query, indexedDocuments.size());
 
-    List<SearchResult> results = new ArrayList<>();
+    var queryWords = query.toLowerCase().split("\\W+");
 
-    for (IndexedDocument indexedDoc : indexedDocuments) {
-      double rankScore = calculateRankScore(queryWords, indexedDoc.wordFrequency());
-      if (rankScore > 0) {
-        results.add(new SearchResult(indexedDoc.id(), rankScore));
-      }
-    }
-
-    // Sort the results by rank score in descending order
-    results.sort((r1, r2) -> Double.compare(r2.rankScore(), r1.rankScore()));
-
-    return results;
+    return indexedDocuments.stream()
+        .map(indexedDoc -> createSearchResult(indexedDoc, queryWords))
+        .filter(Objects::nonNull)
+        .sorted(comparingDouble(SearchResult::rankScore).reversed())
+        .collect(toList());
   }
 
-  private double calculateRankScore(String[] queryWords, Map<String, Integer> wordFrequency) {
-    int totalWords = queryWords.length;
-    int matchedWords = 0;
-
-    for (String word : queryWords) {
-      if (wordFrequency.containsKey(word)) {
-        matchedWords++;
-      }
+  private SearchResult createSearchResult(IndexedDocument indexedDoc, String[] queryWords) {
+    double rankScore = rankingService.calculateRankScore(queryWords, indexedDoc.wordFrequency());
+    if (rankScore > 0) {
+      return SearchResult.builder()
+          .fileId(indexedDoc.id())
+          .fileName(null)
+          .rankScore(rankScore)
+          .build();
     }
-
-    // Calculate rank score based on the proportion of matched words
-    return (double) matchedWords / totalWords;
+    return null;
   }
 }

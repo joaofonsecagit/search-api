@@ -1,27 +1,29 @@
 package com.app.documentapi.infrastructure.adapters;
 
+import static java.nio.file.Files.walk;
+
 import com.app.documentapi.domain.FileSystemReader;
 import com.app.documentapi.domain.file.FileReadingStrategy;
 import com.app.documentapi.domain.model.Document;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static java.nio.file.Files.walk;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class FileSystemAdapter implements FileSystemReader {
 
-  private final Map<String, FileReadingStrategy> strategies;
+  private final Map<String, FileReadingStrategy> strategies = new HashMap<>();
+
+  public FileSystemAdapter() {
+    strategies.put("txt", new TextFileReadingStrategy());
+  }
 
   @Override
   public List<Document> readDocumentsFromDirectory(String directoryPath) {

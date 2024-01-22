@@ -2,10 +2,9 @@ package com.app.documentapi.infrastructure.adapters;
 
 import com.app.documentapi.domain.file.FileReadingStrategy;
 import com.app.documentapi.domain.model.Document;
-import lombok.extern.slf4j.Slf4j;
-
 import java.nio.file.Path;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class DefaultReadingStrategy implements FileReadingStrategy {
