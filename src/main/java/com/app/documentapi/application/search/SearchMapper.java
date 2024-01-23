@@ -1,23 +1,26 @@
 package com.app.documentapi.application.search;
 
 import com.app.documentapi.domain.model.SearchResult;
-import java.util.List;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 public class SearchMapper {
 
   public static SearchResponseDto toDto(List<SearchResult> searchResult) {
-    var response = SearchResponseDto.builder().build();
+    var results = new ArrayList<SearchDto>();
 
     searchResult.forEach(
-        result -> response.searchResults()
-            .add(SearchDto.builder()
-                .fileName(result.fileName())
-                .rankScore(result.rankScore())
-                .build())
+        result -> results.add(SearchDto.builder()
+            .fileName(result.fileName())
+            .rankScore(result.rankScore())
+            .build())
     );
 
-    return response;
+    return SearchResponseDto.builder()
+        .searchResults(results)
+        .build();
   }
 }
