@@ -7,10 +7,8 @@ import static java.util.stream.Collectors.reducing;
 
 import com.app.documentapi.domain.model.Document;
 import com.app.documentapi.domain.model.IndexedDocument;
-
 import java.util.Map;
 import java.util.UUID;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

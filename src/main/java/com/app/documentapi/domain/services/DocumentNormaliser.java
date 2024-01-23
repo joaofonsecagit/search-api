@@ -15,6 +15,6 @@ public class DocumentNormaliser {
   }
 
   private String normalizeContent(String content) {
-    return content.toLowerCase().replaceAll("[^a-z0-9\\s]", "");
+    return content.toLowerCase().replaceAll("[^a-z0-9\\s]", " ");
   }
 }

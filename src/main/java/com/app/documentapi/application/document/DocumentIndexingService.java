@@ -20,6 +20,10 @@ public class DocumentIndexingService {
 
   public List<String> indexDocumentsFromDirectory(String directoryPath) {
     log.info("Reading documents from the directory");
+
+    log.debug("Clearing in memory repository to avoid duplicated indexes of the same document");
+    documentRepository.clear();
+
     var documents = fileSystemReader.readDocumentsFromDirectory(directoryPath);
     var documentsNames = new ArrayList<String>();
 
