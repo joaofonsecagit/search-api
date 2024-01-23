@@ -32,7 +32,6 @@ public class DocumentIndexer {
         .wordFrequency(wordFrequency)
         .build();
   }
-
   private Map<String, Integer> countWordFrequency(String[] words) {
     return stream(words)
         .map(String::toLowerCase)

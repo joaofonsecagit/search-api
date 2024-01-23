@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class FileSystemAdapter implements FileSystemReader {
 
-  private final Map<String, FileReadingStrategy> strategies = new HashMap<>();
+  final Map<String, FileReadingStrategy> strategies = new HashMap<>();
 
   public FileSystemAdapter() {
     strategies.put("txt", new TextFileReadingStrategy());
