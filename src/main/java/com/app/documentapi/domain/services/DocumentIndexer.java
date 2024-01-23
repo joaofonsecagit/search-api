@@ -7,8 +7,10 @@ import static java.util.stream.Collectors.reducing;
 
 import com.app.documentapi.domain.model.Document;
 import com.app.documentapi.domain.model.IndexedDocument;
+
 import java.util.Map;
 import java.util.UUID;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,10 +20,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DocumentIndexer {
 
+  private final DocumentNormaliser documentNormaliser;
+
   public IndexedDocument index(Document document) {
     log.info("Tokenize the document content: {}", document.name());
 
-    var words = tokenize(document.content());
+    var words = documentNormaliser.tokenize(document.content());
     var wordFrequency = countWordFrequency(words);
 
     return IndexedDocument.builder()
@@ -29,10 +33,6 @@ public class DocumentIndexer {
         .fileName(document.name())
         .wordFrequency(wordFrequency)
         .build();
-  }
-
-  private String[] tokenize(String content) {
-    return content.split("\\W+");
   }
 
   private Map<String, Integer> countWordFrequency(String[] words) {
