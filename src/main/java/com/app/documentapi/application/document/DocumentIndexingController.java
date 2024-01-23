@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class DocumentIndexingController {
 
   private final DocumentIndexingService documentIndexingService;
-
   @PostMapping
   public IndexResponseDto indexDocuments(@RequestBody IndexResponseDto indexResponseDto) {
     var directoryPath = indexResponseDto.directoryPath();

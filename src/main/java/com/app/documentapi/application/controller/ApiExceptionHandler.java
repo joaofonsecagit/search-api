@@ -26,12 +26,12 @@ public class ApiExceptionHandler {
 
   @ResponseBody
   @ExceptionHandler(value = {DocumentReadingException.class})
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
   public ApiError handleException(DocumentReadingException exception) {
     log.error("Exception while reading file with message: {}", exception.getMessage(), exception);
     return ApiError.builder()
         .code("FILE READING ERROR")
-        .status(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
+        .status(HttpStatus.UNPROCESSABLE_ENTITY.getReasonPhrase())
         .message("Error")
         .build();
   }

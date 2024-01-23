@@ -9,7 +9,6 @@ import java.util.List;
 
 
 public interface DtoMapper {
-
   static IndexResponseDto toDto(String directoryPath, List<String> documents) {
     return IndexResponseDto.builder()
         .directoryPath(directoryPath)
@@ -17,7 +16,6 @@ public interface DtoMapper {
         .build();
 
   }
-
   static SearchResponseDto toDto(List<SearchResult> searchResult) {
     var results = new ArrayList<SearchDto>();
 

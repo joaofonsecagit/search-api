@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 public class DocumentSearcher {
 
   private final RankingService rankingService;
-
   public List<SearchResult> search(String query, List<IndexedDocument> indexedDocuments) {
     log.info("Searching query '{}' in {} indexed documents", query, indexedDocuments.size());
 

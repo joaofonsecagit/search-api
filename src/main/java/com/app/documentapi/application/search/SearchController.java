@@ -20,7 +20,6 @@ public class SearchController {
 
   private final DocumentSearcher documentSearcher;
   private final DocumentRepository repository;
-
   @GetMapping
   public SearchResponseDto search(@RequestParam String query) {
     return toDto(documentSearcher.search(query, repository.getAll()));

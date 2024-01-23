@@ -21,7 +21,7 @@ public class DocumentIndexer {
   private final DocumentNormaliser documentNormaliser;
 
   public IndexedDocument index(Document document) {
-    log.info("Tokenize the document content: {}", document.name());
+    log.info("Indexing document: {}", document.name());
 
     var words = documentNormaliser.tokenize(document.content());
     var wordFrequency = countWordFrequency(words);

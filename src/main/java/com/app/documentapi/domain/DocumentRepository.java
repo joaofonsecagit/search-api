@@ -8,11 +8,11 @@ public interface DocumentRepository {
 
   void add(IndexedDocument indexedDocument);
 
-  IndexedDocument get(UUID id);
+  IndexedDocument get(UUID id); //TODO add controller for this functionality
 
   List<IndexedDocument> getAll();
 
-  void delete(UUID id);
+  void delete(UUID id); //TODO add controller for this functionality
 
   void clear();
 }

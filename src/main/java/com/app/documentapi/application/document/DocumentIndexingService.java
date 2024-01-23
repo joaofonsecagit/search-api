@@ -17,7 +17,6 @@ public class DocumentIndexingService {
   private final FileSystemReader fileSystemReader;
   private final DocumentIndexer documentIndexer;
   private final DocumentRepository documentRepository;
-
   public List<String> indexDocumentsFromDirectory(String directoryPath) {
     log.info("Reading documents from the directory");
 
