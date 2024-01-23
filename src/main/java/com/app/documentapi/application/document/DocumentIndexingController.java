@@ -1,5 +1,7 @@
 package com.app.documentapi.application.document;
 
+import static com.app.documentapi.application.document.IndexMapper.toDto;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +16,8 @@ public class DocumentIndexingController {
   private final DocumentIndexingService documentIndexingService;
 
   @PostMapping
-  public IndexDto indexDocuments(@RequestBody IndexDto indexDto) {
-    return documentIndexingService.indexDocumentsFromDirectory(indexDto.directoryPath());
+  public IndexResponseDto indexDocuments(@RequestBody IndexResponseDto indexResponseDto) {
+    var directoryPath = indexResponseDto.directoryPath();
+    return toDto(directoryPath, documentIndexingService.indexDocumentsFromDirectory(directoryPath));
   }
 }

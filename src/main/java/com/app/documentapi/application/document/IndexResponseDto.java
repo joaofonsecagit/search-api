@@ -4,7 +4,7 @@ import java.util.List;
 import lombok.Builder;
 
 @Builder
-public record IndexDto(
+public record IndexResponseDto(
     String directoryPath,
     List<String> indexedDocuments
 ) {
