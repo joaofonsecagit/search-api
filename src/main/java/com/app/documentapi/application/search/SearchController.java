@@ -1,6 +1,7 @@
 package com.app.documentapi.application.search;
 
-import static com.app.documentapi.application.search.SearchMapper.toDto;
+
+import static com.app.documentapi.application.controller.DtoMapper.toDto;
 
 import com.app.documentapi.domain.DocumentRepository;
 import com.app.documentapi.domain.services.DocumentSearcher;

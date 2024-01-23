@@ -2,6 +2,7 @@ package com.app.documentapi.infrastructure.adapters;
 
 import static java.nio.file.Files.walk;
 
+import com.app.documentapi.application.exception.DocumentReadingException;
 import com.app.documentapi.domain.FileSystemReader;
 import com.app.documentapi.domain.file.FileReadingStrategy;
 import com.app.documentapi.domain.model.Document;
@@ -35,6 +36,7 @@ public class FileSystemAdapter implements FileSystemReader {
           .forEach(filePath -> processFile(documents, filePath));
     } catch (IOException e) {
       log.error("Error accessing directory: {}", directoryPath, e);
+      throw new DocumentReadingException(directoryPath);
     }
 
     return documents;
@@ -42,14 +44,10 @@ public class FileSystemAdapter implements FileSystemReader {
 
   private void processFile(List<Document> documents, Path filePath) {
     log.debug("Processing file: {}", filePath);
-    try {
-      var fileExtension = getFileExtension(filePath);
-      var strategy = strategies.getOrDefault(fileExtension, new DefaultReadingStrategy());
-      var document = strategy.readDocument(filePath);
-      documents.add(document);
-    } catch (IOException e) {
-      log.error("Error reading file: {}", filePath, e);
-    }
+    var fileExtension = getFileExtension(filePath);
+    var strategy = strategies.getOrDefault(fileExtension, new DefaultReadingStrategy());
+    var document = strategy.readDocument(filePath);
+    documents.add(document);
   }
 
   private String getFileExtension(Path path) {
