@@ -2,12 +2,17 @@ package com.app.documentapi.domain.services;
 
 import com.app.documentapi.domain.model.Document;
 import com.app.documentapi.domain.model.IndexedDocument;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
+import java.util.UUID;
+
+import static java.util.Arrays.stream;
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.reducing;
 
 @Slf4j
 @Service
@@ -15,30 +20,25 @@ import org.springframework.stereotype.Service;
 public class DocumentIndexer {
 
   public IndexedDocument index(Document document) {
-    // Tokenize the document content
-    String[] words = tokenize(document.content());
+    log.info("Tokenize the document content: {}", document.name());
 
-    // Count word occurrences
-    Map<String, Integer> wordFrequency = countWordFrequency(words);
+    var words = tokenize(document.content());
+    var wordFrequency = countWordFrequency(words);
 
-    // Create an IndexedDocument
     return IndexedDocument.builder()
         .id(UUID.randomUUID())
+        .fileName(document.name())
         .wordFrequency(wordFrequency)
         .build();
   }
 
   private String[] tokenize(String content) {
-    // Simple tokenization by splitting on non-word characters
     return content.split("\\W+");
   }
 
   private Map<String, Integer> countWordFrequency(String[] words) {
-    Map<String, Integer> frequency = new HashMap<>();
-    for (String word : words) {
-      word = word.toLowerCase(); // Normalize to lowercase
-      frequency.put(word, frequency.getOrDefault(word, 0) + 1);
-    }
-    return frequency;
+    return stream(words)
+        .map(String::toLowerCase)
+        .collect(groupingBy(identity(), reducing(0, e -> 1, Integer::sum)));
   }
 }

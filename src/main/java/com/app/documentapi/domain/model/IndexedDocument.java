@@ -7,6 +7,7 @@ import lombok.Builder;
 @Builder
 public record IndexedDocument(
     UUID id,
+    String fileName,
     Map<String, Integer> wordFrequency
 ) {
 }
