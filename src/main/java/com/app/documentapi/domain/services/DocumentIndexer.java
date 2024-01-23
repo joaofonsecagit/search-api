@@ -1,18 +1,17 @@
 package com.app.documentapi.domain.services;
 
-import com.app.documentapi.domain.model.Document;
-import com.app.documentapi.domain.model.IndexedDocument;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import java.util.Map;
-import java.util.UUID;
-
 import static java.util.Arrays.stream;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.reducing;
+
+import com.app.documentapi.domain.model.Document;
+import com.app.documentapi.domain.model.IndexedDocument;
+import java.util.Map;
+import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service

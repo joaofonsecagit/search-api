@@ -1,10 +1,9 @@
 package com.app.documentapi.application.search;
 
 import com.app.documentapi.domain.model.SearchResult;
-import lombok.NoArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.List;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class SearchMapper {

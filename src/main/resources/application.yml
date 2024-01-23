@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: document
+    api:
+      max-limit-results: 10
 
 logging:
   level:

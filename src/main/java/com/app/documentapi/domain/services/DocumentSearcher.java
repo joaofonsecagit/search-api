@@ -1,16 +1,15 @@
 package com.app.documentapi.domain.services;
 
+import static java.util.Comparator.comparingDouble;
+import static java.util.stream.Collectors.toList;
+
 import com.app.documentapi.domain.model.IndexedDocument;
 import com.app.documentapi.domain.model.SearchResult;
+import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Objects;
-
-import static java.util.Comparator.comparingDouble;
-import static java.util.stream.Collectors.toList;
 
 @Slf4j
 @Service
@@ -28,6 +27,7 @@ public class DocumentSearcher {
         .map(indexedDoc -> createSearchResult(indexedDoc, queryWords))
         .filter(Objects::nonNull)
         .sorted(comparingDouble(SearchResult::rankScore).reversed())
+        .limit(10) //TODO set configuration in app yml
         .collect(toList());
   }
 
