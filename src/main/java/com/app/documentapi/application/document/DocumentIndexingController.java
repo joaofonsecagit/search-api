@@ -1,7 +1,5 @@
 package com.app.documentapi.application.document;
 
-//import static com.app.documentapi.application.controller.IndexMapper.toDto;
-
 import static com.app.documentapi.application.controller.DtoMapper.toDto;
 
 import lombok.RequiredArgsConstructor;
