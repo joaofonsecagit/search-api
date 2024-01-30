@@ -18,7 +18,7 @@ public class DefaultReadingStrategy implements FileReadingStrategy {
     return Document.builder()
         .id(randomUUID())
         .name(filePath.getFileName().toString())
-        .content("Unsupported file type.")
+        .content("")
         .build();
   }
 }

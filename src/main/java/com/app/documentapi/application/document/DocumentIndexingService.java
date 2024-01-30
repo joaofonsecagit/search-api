@@ -29,7 +29,7 @@ public class DocumentIndexingService {
     documents.forEach(document -> {
       log.debug("Indexing and storing document: {}", document.name());
       var indexedDocument = documentIndexer.index(document);
-      documentRepository.add(indexedDocument);
+      documentRepository.add(indexedDocument); //TOO a mappr hr to map to ntity lass bfor storing
       documentsNames.add(document.name());
     });
 

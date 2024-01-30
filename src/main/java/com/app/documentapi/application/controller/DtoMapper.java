@@ -14,7 +14,6 @@ public interface DtoMapper {
         .directoryPath(directoryPath)
         .indexedDocuments(documents)
         .build();
-
   }
   static SearchResponseDto toDto(List<SearchResult> searchResult) {
     var results = new ArrayList<SearchDto>();
