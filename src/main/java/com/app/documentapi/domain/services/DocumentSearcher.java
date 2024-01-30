@@ -1,7 +1,6 @@
 package com.app.documentapi.domain.services;
 
 import static java.util.Comparator.comparingDouble;
-import static java.util.stream.Collectors.toList;
 
 import com.app.documentapi.domain.model.IndexedDocument;
 import com.app.documentapi.domain.model.SearchResult;
@@ -27,7 +26,7 @@ public class DocumentSearcher {
         .filter(Objects::nonNull)
         .sorted(comparingDouble(SearchResult::rankScore).reversed())
         .limit(10) //TODO set configuration in app yml
-        .collect(toList());
+        .toList();
   }
 
   private SearchResult createSearchResult(IndexedDocument indexedDoc, String[] queryWords) {
