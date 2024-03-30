@@ -26,6 +26,13 @@ public class DocumentIndexer {
     var words = documentNormaliser.tokenize(document.content());
     var wordFrequency = countWordFrequency(words);
 
+
+
+    // for each unique word -> add word to index (if does not exist) -> add document to set of documents
+
+
+    //
+
     return IndexedDocument.builder()
         .id(UUID.randomUUID())
         .fileName(document.name())
